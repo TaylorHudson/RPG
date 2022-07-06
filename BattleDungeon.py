@@ -119,6 +119,8 @@ class RPG:
         grupo_sprites.add(personagem)
         grupo_sprites.add(inimigo)
 
+        vida_10 = ponto_10
+
         self.vida_inimigo = vida
         self.imagem = txt_vitoria
         ataque = False

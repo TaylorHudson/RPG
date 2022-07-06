@@ -120,6 +120,7 @@ class RPG:
         grupo_sprites.add(inimigo)
 
         barra_vida = pontos_vida
+        img_coracao = coracao
 
         self.vida_inimigo = vida
         self.imagem = txt_vitoria
@@ -156,8 +157,10 @@ class RPG:
             personagem.carregar()
             inimigo.carregar()
             
-            self.tela.blit(barra_vida[self.vida_personagem - 1], (125, 100))
-            self.tela.blit(barra_vida[self.vida_inimigo - 1], (467, 100))
+            self.tela.blit(barra_vida[self.vida_personagem - 1], (125, 70))
+            self.tela.blit(barra_vida[self.vida_inimigo - 1], (467, 70))
+            self.tela.blit(img_coracao, (95, 57))
+            self.tela.blit(img_coracao, (435, 57))
 
             if self.vida_personagem == 0:
                 self.tela.blit(txt_derrota, (150, 200))

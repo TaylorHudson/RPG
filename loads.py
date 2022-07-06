@@ -43,6 +43,9 @@ pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/7.png'))
 pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/8.png'))
 pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/9.png'))
 pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/10.png'))
+coracao = pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/coracao.png')
+
+# dados
 
 # Carregar imagens
 escala_txt_inicial = pg.transform.scale(txt_inicial,(txt_inicial.get_rect().h*3.1, txt_inicial.get_rect().w*2.5))

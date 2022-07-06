@@ -33,16 +33,16 @@ escolhaPortas = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/escolhaPortas.png'
 
 # pontos de vida
 pontos_vida = []
-pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/10.png'))
-pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/9.png'))
-pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/8.png'))
-pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/7.png'))
-pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/6.png'))
-pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/5.png'))
-pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/4.png'))
-pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/3.png'))
-pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/2.png'))
 pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/1.png'))
+pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/2.png'))
+pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/3.png'))
+pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/4.png'))
+pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/5.png'))
+pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/6.png'))
+pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/7.png'))
+pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/8.png'))
+pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/9.png'))
+pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/10.png'))
 
 # Carregar imagens
 escala_txt_inicial = pg.transform.scale(txt_inicial,(txt_inicial.get_rect().h*3.1, txt_inicial.get_rect().w*2.5))

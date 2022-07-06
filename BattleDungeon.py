@@ -119,7 +119,7 @@ class RPG:
         grupo_sprites.add(personagem)
         grupo_sprites.add(inimigo)
 
-        vida_10 = ponto_10
+        barra_vida = pontos_vida
 
         self.vida_inimigo = vida
         self.imagem = txt_vitoria
@@ -156,17 +156,14 @@ class RPG:
             personagem.carregar()
             inimigo.carregar()
             
-            txtVida_personagem = self.fontePequena.render(f"Personagem: {str(self.vida_personagem)}", True, (255, 255, 255))
-            self.tela.blit(txtVida_personagem, (190, 100))
-
-            txtVida_inimigo = self.fontePequena.render(f"Inimigo: {str(self.vida_inimigo)}", True, (255, 255, 255))
-            self.tela.blit(txtVida_inimigo, (480, 100))
+            self.tela.blit(barra_vida[self.vida_personagem - 1], (125, 100))
+            self.tela.blit(barra_vida[self.vida_inimigo - 1], (467, 100))
 
             if self.vida_personagem == 0:
                 self.tela.blit(txt_derrota, (150, 200))
                 if pg.key.get_pressed()[pg.K_r]:
-                    self.vida_personagem = 10
                     self.vida_inimigo = 10
+                    self.vida_personagem = 10
                     self.tela_escolha()
 
             if self.vida_inimigo == 0:
@@ -264,63 +261,63 @@ class RPG:
                         if vencedor1 == 'ganhou':
                             escolha2 = self.tela_escolha_portas()
                             if escolha2:
-                                vencedor2 = self.tela_batalha(personagem='cassio', inimigo='death', dano=1, vida=15)
+                                vencedor2 = self.tela_batalha(personagem='cassio', inimigo='death', dano=1, vida=10)
                                 if vencedor2 == 'ganhou':
                                     escolha3 = self.tela_escolha_portas()
                                     if escolha3:
-                                        vencedor3 = self.tela_batalha(personagem='cassio', inimigo='red orc', dano=2,vida=20)
+                                        vencedor3 = self.tela_batalha(personagem='cassio', inimigo='red orc', dano=2,vida=10)
                                         if vencedor3 == 'ganhou':
                                             escolha4 = self.tela_escolha_portas()
                                             if escolha4:
-                                                vencedor4 = self.tela_batalha(personagem='cassio', inimigo='minotaur',dano=2, vida=25)
+                                                vencedor4 = self.tela_batalha(personagem='cassio', inimigo='minotaur',dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_cassio()
                                             else:
-                                                vencedor4 = self.tela_batalha(personagem='cassio', inimigo='evil cleric',dano=2, vida=25)
+                                                vencedor4 = self.tela_batalha(personagem='cassio', inimigo='evil cleric',dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_cassio()
                                     else:
-                                        vencedor3 = self.tela_batalha(personagem='cassio', inimigo='hunter orc', dano=2,vida=20)
+                                        vencedor3 = self.tela_batalha(personagem='cassio', inimigo='hunter orc', dano=2,vida=10)
                                         if vencedor3 == 'ganhou':
                                             escolha4 = self.tela_escolha_portas()
                                             if escolha4:
-                                                vencedor4 = self.tela_batalha(personagem='cassio', inimigo='minotaur',dano=2, vida=25)
+                                                vencedor4 = self.tela_batalha(personagem='cassio', inimigo='minotaur',dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_cassio()
                                             else:
-                                                vencedor4 = self.tela_batalha(personagem='cassio',inimigo='evil cleric', dano=2, vida=25)
+                                                vencedor4 = self.tela_batalha(personagem='cassio',inimigo='evil cleric', dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_cassio()
                             else:
-                                vencedor2 = self.tela_batalha(personagem='cassio', inimigo='psionic', dano=1, vida=15)
+                                vencedor2 = self.tela_batalha(personagem='cassio', inimigo='psionic', dano=1, vida=10)
                                 if vencedor2 == 'ganhou':
                                     escolha3 = self.tela_escolha_portas()
                                     if escolha3:
-                                        vencedor3 = self.tela_batalha(personagem='cassio', inimigo='ghost', dano=2,vida=20)
+                                        vencedor3 = self.tela_batalha(personagem='cassio', inimigo='ghost', dano=2,vida=10)
                                         if vencedor3 == 'ganhou':
                                             escolha4 = self.tela_escolha_portas()
                                             if escolha4:
                                                 vencedor4 = self.tela_batalha(personagem='cassio', inimigo='minotaur',
-                                                                              dano=2, vida=25)
+                                                                              dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_cassio()
                                             else:
                                                 vencedor4 = self.tela_batalha(personagem='cassio',
-                                                                              inimigo='evil cleric', dano=2, vida=25)
+                                                                              inimigo='evil cleric', dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_cassio()
                                     else:
-                                        vencedor3 = self.tela_batalha(personagem='cassio', inimigo='yellow ghost',dano=2, vida=20)
+                                        vencedor3 = self.tela_batalha(personagem='cassio', inimigo='yellow ghost',dano=2, vida=10)
                                         if vencedor3 == 'ganhou':
                                             escolha4 = self.tela_escolha_portas()
                                             if escolha4:
                                                 vencedor4 = self.tela_batalha(personagem='cassio', inimigo='minotaur',
-                                                                              dano=2, vida=25)
+                                                                              dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_cassio()
                                             else:
                                                 vencedor4 = self.tela_batalha(personagem='cassio',
-                                                                              inimigo='evil cleric', dano=2, vida=25)
+                                                                              inimigo='evil cleric', dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_cassio()
 
@@ -329,63 +326,63 @@ class RPG:
                         if vencedor1 == 'ganhou':
                             escolha2 = self.tela_escolha_portas()
                             if escolha2:
-                                vencedor2 = self.tela_batalha(personagem='cassio', inimigo='death', dano=1, vida=15)
+                                vencedor2 = self.tela_batalha(personagem='cassio', inimigo='death', dano=1, vida=10)
                                 if vencedor2 == 'ganhou':
                                     escolha3 = self.tela_escolha_portas()
                                     if escolha3:
-                                        vencedor3 = self.tela_batalha(personagem='cassio', inimigo='red orc', dano=2,vida=20)
+                                        vencedor3 = self.tela_batalha(personagem='cassio', inimigo='red orc', dano=2,vida=10)
                                         if vencedor3 == 'ganhou':
                                             escolha4 = self.tela_escolha_portas()
                                             if escolha4:
                                                 vencedor4 = self.tela_batalha(personagem='cassio', inimigo='minotaur',
-                                                                              dano=2, vida=25)
+                                                                              dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_cassio()
                                             else:
                                                 vencedor4 = self.tela_batalha(personagem='cassio',
-                                                                              inimigo='evil cleric', dano=2, vida=25)
+                                                                              inimigo='evil cleric', dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_cassio()
                                     else:
-                                        vencedor3 = self.tela_batalha(personagem='cassio', inimigo='hunter orc', dano=2,vida=20)
+                                        vencedor3 = self.tela_batalha(personagem='cassio', inimigo='hunter orc', dano=2,vida=10)
                                         if vencedor3 == 'ganhou':
                                             escolha4 = self.tela_escolha_portas()
                                             if escolha4:
                                                 vencedor4 = self.tela_batalha(personagem='cassio', inimigo='minotaur',
-                                                                              dano=2, vida=25)
+                                                                              dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_cassio()
                                             else:
                                                 vencedor4 = self.tela_batalha(personagem='cassio',
-                                                                              inimigo='evil cleric', dano=2, vida=25)
+                                                                              inimigo='evil cleric', dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_cassio()
                             else:
-                                vencedor2 = self.tela_batalha(personagem='cassio', inimigo='imp', dano=1,vida=15)
+                                vencedor2 = self.tela_batalha(personagem='cassio', inimigo='imp', dano=1,vida=10)
                                 if vencedor2 == 'ganhou':
                                     escolha3 = self.tela_escolha_portas()
                                     if escolha3:
-                                        vencedor3 = self.tela_batalha(personagem='cassio', inimigo='ghost',dano=2, vida=20)
+                                        vencedor3 = self.tela_batalha(personagem='cassio', inimigo='ghost',dano=2, vida=10)
                                         if vencedor3 == 'ganhou':
                                             escolha4 = self.tela_escolha_portas()
                                             if escolha4:
-                                                vencedor4 = self.tela_batalha(personagem='cassio', inimigo='minotaur',dano=2, vida=25)
+                                                vencedor4 = self.tela_batalha(personagem='cassio', inimigo='minotaur',dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_cassio()
                                             else:
-                                                vencedor4 = self.tela_batalha(personagem='cassio',inimigo='evil cleric', dano=2, vida=25)
+                                                vencedor4 = self.tela_batalha(personagem='cassio',inimigo='evil cleric', dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_cassio()
                                     else:
-                                        vencedor3 = self.tela_batalha(personagem='cassio', inimigo='yellow ghost',dano=2, vida=20)
+                                        vencedor3 = self.tela_batalha(personagem='cassio', inimigo='yellow ghost',dano=2, vida=10)
                                         if vencedor3 == 'ganhou':
                                             escolha4 = self.tela_escolha_portas()
                                             if escolha4:
-                                                vencedor4 = self.tela_batalha(personagem='cassio', inimigo='minotaur',dano=2, vida=25)
+                                                vencedor4 = self.tela_batalha(personagem='cassio', inimigo='minotaur',dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_cassio()
                                             else:
-                                                vencedor4 = self.tela_batalha(personagem='cassio',inimigo='evil cleric', dano=2, vida=25)
+                                                vencedor4 = self.tela_batalha(personagem='cassio',inimigo='evil cleric', dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_cassio()
 
@@ -413,69 +410,69 @@ class RPG:
                         if vencedor1 == 'ganhou':
                             escolha2 = self.tela_escolha_portas()
                             if escolha2:
-                                vencedor2 = self.tela_batalha(personagem='pietra', inimigo='death', dano=2, vida=15)
+                                vencedor2 = self.tela_batalha(personagem='pietra', inimigo='death', dano=2, vida=10)
                                 if vencedor2 == 'ganhou':
                                     escolha3 = self.tela_escolha_portas()
                                     if escolha3:
-                                        vencedor3 = self.tela_batalha(personagem='pietra', inimigo='red orc', dano=2,vida=20)
+                                        vencedor3 = self.tela_batalha(personagem='pietra', inimigo='red orc', dano=2,vida=10)
                                         if vencedor3 == 'ganhou':
                                             escolha4 = self.tela_escolha_portas()
                                             if escolha4:
                                                 vencedor4 = self.tela_batalha(personagem='pietra', inimigo='minotaur',
-                                                                              dano=2, vida=25)
+                                                                              dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_pietra()
                                             else:
                                                 vencedor4 = self.tela_batalha(personagem='pietra',
-                                                                              inimigo='evil cleric', dano=2, vida=25)
+                                                                              inimigo='evil cleric', dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_pietra()
                                     else:
                                         vencedor3 = self.tela_batalha(personagem='pietra', inimigo='hunter orc', dano=2,
-                                                                      vida=20)
+                                                                      vida=10)
                                         escolha4 = self.tela_escolha_portas()
                                         if escolha4:
                                             vencedor4 = self.tela_batalha(personagem='pietra', inimigo='minotaur',
-                                                                          dano=2, vida=25)
+                                                                          dano=2, vida=10)
                                             if vencedor4 == 'ganhou':
                                                 self.tela_vitoria_pietra()
                                         else:
                                             vencedor4 = self.tela_batalha(personagem='pietra', inimigo='evil cleric',
-                                                                          dano=2, vida=25)
+                                                                          dano=2, vida=10)
                                             if vencedor4 == 'ganhou':
                                                 self.tela_vitoria_pietra()
                             else:
-                                vencedor2 = self.tela_batalha(personagem='pietra', inimigo='psionic', dano=2, vida=15)
+                                vencedor2 = self.tela_batalha(personagem='pietra', inimigo='psionic', dano=2, vida=10)
                                 if vencedor2 == 'ganhou':
                                     escolha3 = self.tela_escolha_portas()
                                     if escolha3:
                                         vencedor3 = self.tela_batalha(personagem='pietra', inimigo='ghost', dano=2,
-                                                                      vida=20)
+                                                                      vida=10)
                                         if vencedor3 == 'ganhou':
                                             escolha4 = self.tela_escolha_portas()
                                             if escolha4:
                                                 vencedor4 = self.tela_batalha(personagem='pietra', inimigo='minotaur',
-                                                                              dano=2, vida=25)
+                                                                              dano=2, vida=15)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_pietra()
                                             else:
                                                 vencedor4 = self.tela_batalha(personagem='pietra',
-                                                                              inimigo='evil cleric', dano=2, vida=25)
+                                                                              inimigo='evil cleric', dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_pietra()
                                     else:
                                         vencedor3 = self.tela_batalha(personagem='pietra', inimigo='yellow ghost',
-                                                                      dano=2, vida=20)
+                                                                      dano=2, vida=10)
                                         if vencedor3 == 'ganhou':
                                             escolha4 = self.tela_escolha_portas()
                                             if escolha4:
                                                 vencedor4 = self.tela_batalha(personagem='pietra', inimigo='minotaur',
-                                                                              dano=2, vida=25)
+                                                                              dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_pietra()
                                             else:
                                                 vencedor4 = self.tela_batalha(personagem='pietra',
-                                                                              inimigo='evil cleric', dano=2, vida=25)
+                                                                              inimigo='evil cleric', dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_pietra()
 
@@ -484,71 +481,71 @@ class RPG:
                         if vencedor1 == 'ganhou':
                             escolha2 = self.tela_escolha_portas()
                             if escolha2:
-                                vencedor2 = self.tela_batalha(personagem='pietra', inimigo='death', dano=2, vida=15)
+                                vencedor2 = self.tela_batalha(personagem='pietra', inimigo='death', dano=2, vida=10)
                                 if vencedor2 == 'ganhou':
                                     escolha3 = self.tela_escolha_portas()
                                     if escolha3:
                                         vencedor3 = self.tela_batalha(personagem='pietra', inimigo='red orc', dano=2,
-                                                                      vida=20)
+                                                                      vida=10)
                                         if vencedor3 == 'ganhou':
                                             escolha4 = self.tela_escolha_portas()
                                             if escolha4:
                                                 vencedor4 = self.tela_batalha(personagem='pietra', inimigo='minotaur',
-                                                                              dano=2, vida=25)
+                                                                              dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_pietra()
                                             else:
                                                 vencedor4 = self.tela_batalha(personagem='pietra',
-                                                                              inimigo='evil cleric', dano=2, vida=25)
+                                                                              inimigo='evil cleric', dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_pietra()
                                     else:
                                         vencedor3 = self.tela_batalha(personagem='pietra', inimigo='hunter orc', dano=2,
-                                                                      vida=20)
+                                                                      vida=10)
                                         if vencedor3 == 'ganhou':
                                             escolha4 = self.tela_escolha_portas()
                                             if escolha4:
                                                 vencedor4 = self.tela_batalha(personagem='pietra', inimigo='minotaur',
-                                                                              dano=2, vida=25)
+                                                                              dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_pietra()
                                             else:
                                                 vencedor4 = self.tela_batalha(personagem='pietra',
-                                                                              inimigo='evil cleric', dano=2, vida=25)
+                                                                              inimigo='evil cleric', dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_pietra()
                             else:
-                                vencedor2 = self.tela_batalha(personagem='pietra', inimigo='imp', dano=2, vida=15)
+                                vencedor2 = self.tela_batalha(personagem='pietra', inimigo='imp', dano=2, vida=10)
                                 if vencedor2 == 'ganhou':
                                     escolha3 = self.tela_escolha_portas()
                                     if escolha3:
                                         vencedor3 = self.tela_batalha(personagem='pietra', inimigo='ghost', dano=2,
-                                                                      vida=20)
+                                                                      vida=10)
                                         if vencedor3 == 'ganhou':
                                             escolha4 = self.tela_escolha_portas()
                                             if escolha4:
                                                 vencedor4 = self.tela_batalha(personagem='pietra', inimigo='minotaur',
-                                                                              dano=2, vida=25)
+                                                                              dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_pietra()
                                             else:
                                                 vencedor4 = self.tela_batalha(personagem='pietra',
-                                                                              inimigo='evil cleric', dano=2, vida=25)
+                                                                              inimigo='evil cleric', dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_pietra()
                                     else:
                                         vencedor3 = self.tela_batalha(personagem='pietra', inimigo='yellow ghost',
-                                                                      dano=2, vida=20)
+                                                                      dano=2, vida=10)
                                         if vencedor3 == 'ganhou':
                                             escolha4 = self.tela_escolha_portas()
                                             if escolha4:
                                                 vencedor4 = self.tela_batalha(personagem='pietra', inimigo='minotaur',
-                                                                              dano=2, vida=25)
+                                                                              dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_pietra()
                                             else:
                                                 vencedor4 = self.tela_batalha(personagem='pietra',
-                                                                              inimigo='evil cleric', dano=2, vida=25)
+                                                                              inimigo='evil cleric', dano=2, vida=10)
                                                 if vencedor4 == 'ganhou':
                                                     self.tela_vitoria_pietra()
             else:

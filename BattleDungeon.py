@@ -23,6 +23,9 @@ class RPG:
         self.contadorEscolhaCassio, self.contadorEscolhaPietra = 0, 0
         self.contadorCassioParado, self.contadorPietraParada = 0, 0
 
+        self.dano = 0
+        self.dado = 0
+
     # ------------------------------------ Tela créditos ------------------------------------------------------------
     def tela_creditos(self):
         creditoLoop = True
@@ -90,6 +93,16 @@ class RPG:
 
 # ------------------------------------ Batalha -------------------------------------------------------------------
     def tela_batalha(self, personagem, inimigo, dano: int, vida: int):
+        if inimigo == 'minotaur' or inimigo == 'evil cleric':
+            pg.mixer.music.pause()
+            som_batalha.stop()
+            som_batalha_final.set_volume(0.4)
+            som_batalha_final.play(-1)
+        else:
+            pg.mixer.music.pause()
+            som_batalha.set_volume(0.4)
+            som_batalha.play(-1)
+
         if personagem == 'cassio':
             personagem = classes.Cassio(200, 250)
         elif personagem == 'pietra':
@@ -124,7 +137,9 @@ class RPG:
 
         self.vida_inimigo = vida
         self.imagem = txt_vitoria
+
         ataque = False
+        errou_ataque = False
         self.batalha = True
         while self.batalha:
             self.clock.tick(10)
@@ -135,27 +150,40 @@ class RPG:
                     exit()
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_a:
-                        if ataque == False:
-                            ataque = True
-                            self.dado = randint(1, 6)
-                            self.verificador(self.dado)
+                        ataque = True
+                        self.dado = randint(1, 6)
+                        if self.dado >= 4:
+                            errou_ataque = False
+                            self.dano = 3
+                            self.verificador(self.dano)
                             personagem.atack()
+                        else:
+                            errou_ataque = True
 
-                            if dano > self.vida_personagem:
-                                self.vida_personagem = 0
-                            else:
-                                self.vida_personagem -= dano
-                            inimigo.atack()
+                        if dano > self.vida_personagem:
+                            self.vida_personagem = 0
+                        else:
+                            self.vida_personagem -= dano
+                        inimigo.atack()
 
                     if event.key == pg.K_z:
                         inimigo.atack()
                         self.vida_personagem += 0
                         self.vida_inimigo += 0
 
+                indice = self.dado - 1
+
             self.tela.blit(imgBatalha, (areaImgBatalha.x, areaImgBatalha.y))
             grupo_sprites.draw(self.tela)
             personagem.carregar()
             inimigo.carregar()
+
+            self.tela.blit(txt_informacao_batalha, (270, 500))
+
+            if errou_ataque:
+                self.tela.blit(txt_errou_ataque, (0,0))
+            if ataque:
+                self.tela.blit(lista_dados[indice], (0,0))
             
             self.tela.blit(barra_vida[self.vida_personagem - 1], (125, 70))
             self.tela.blit(barra_vida[self.vida_inimigo - 1], (467, 70))
@@ -176,7 +204,6 @@ class RPG:
                     self.vida_personagem = 10
                     return 'ganhou'
 
-            ataque = False
             pg.display.update()
             pg.display.flip()
 

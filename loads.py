@@ -11,8 +11,10 @@ def spriteListaEscala(lista, img, finalRange):
     for i in range(finalRange-2):
         lista.append(pg.transform.scale(img[i], (img[0].get_width()*1.05, img[0].get_height()*1.05)))
 
-# música
+# música/sons
 musica_jogo = pg.mixer.music.load('musicasDoProjeto/som_de_fundo.mpga')
+som_batalha = pg.mixer.Sound('musicasDoProjeto/FIGHT.mp3')
+som_batalha_final = pg.mixer.Sound('musicasDoProjeto/FINAL_FIGHT.mp3')
 
 # texto
 txt_inicial = pg.image.load('IMAGENS/INFOS/txtInicio.png')
@@ -20,6 +22,8 @@ txt_vitoria = pg.image.load('IMAGENS/INFOS/txtVitoria2.png')
 txt_opc_habilidade = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/opcaoHabilidade.png')
 txt_derrota = pg.image.load('IMAGENS/INFOS/txtDerrota.png')
 txt_ultima_vitoria = pg.image.load('IMAGENS/INFOS/txtUltimaVitoria.png')
+txt_informacao_batalha = pg.image.load('IMAGENS/INFOS/informacao_de_batalha.png')
+txt_errou_ataque = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/errou_ataque.png')
 agradecimentoPietra = pg.image.load('IMAGENS/INFOS/agradecimentoPietra.png')
 respostaCassio = pg.image.load('IMAGENS/INFOS/respostaCassio.png')
 agradecimentoCassio = pg.image.load('IMAGENS/INFOS/agradecimentoCassio.png')
@@ -46,6 +50,14 @@ pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/10.png'))
 coracao = pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/coracao.png')
 
 # dados
+lista_dados = [
+pg.image.load('IMAGENS/INFOS/DADOS/1.png'),
+pg.image.load('IMAGENS/INFOS/DADOS/2.png'),
+pg.image.load('IMAGENS/INFOS/DADOS/3.png'),
+pg.image.load('IMAGENS/INFOS/DADOS/4.png'),
+pg.image.load('IMAGENS/INFOS/DADOS/5.png'),
+pg.image.load('IMAGENS/INFOS/DADOS/6.png'),
+]
 
 # Carregar imagens
 escala_txt_inicial = pg.transform.scale(txt_inicial,(txt_inicial.get_rect().h*3.1, txt_inicial.get_rect().w*2.5))

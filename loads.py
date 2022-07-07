@@ -24,6 +24,11 @@ txt_derrota = pg.image.load('IMAGENS/INFOS/txtDerrota.png')
 txt_ultima_vitoria = pg.image.load('IMAGENS/INFOS/txtUltimaVitoria.png')
 txt_informacao_batalha = pg.image.load('IMAGENS/INFOS/informacao_de_batalha.png')
 txt_errou_ataque = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/errou_ataque.png')
+txt_acertou_ataque = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/acertou_ataque.png')
+txt_errou_esquiva = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/errou_esquiva.png')
+txt_acertou_esquiva = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/acertou_esquiva.png')
+txt_errou_especial = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/errou_especial.png')
+txt_acertou_especial = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/acertou_especial.png')
 agradecimentoPietra = pg.image.load('IMAGENS/INFOS/agradecimentoPietra.png')
 respostaCassio = pg.image.load('IMAGENS/INFOS/respostaCassio.png')
 agradecimentoCassio = pg.image.load('IMAGENS/INFOS/agradecimentoCassio.png')
@@ -47,7 +52,6 @@ pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/7.png'))
 pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/8.png'))
 pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/9.png'))
 pontos_vida.append(pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/10.png'))
-coracao = pg.image.load('IMAGENS/INFOS/PONTOS_DE_VIDA/coracao.png')
 
 # dados
 lista_dados = [
@@ -88,7 +92,7 @@ btnContinuarEscala = pg.transform.scale(btnContinuar, (areaBtnContinuar.w * 1.05
 txtPause = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/pause.png')
 areaTxtPause = txtPause.get_rect(x=250, y=10)
 
-imgBatalha = pg.image.load('IMAGENS/FUNDO/fundoBatalha/fundoBatalha.png')
+imgBatalha = pg.image.load('IMAGENS/FUNDO/fundoBatalha/fundoBatalha2.png')
 areaImgBatalha = imgBatalha.get_rect(x=15, y=40)
 
 # Carregar sprites

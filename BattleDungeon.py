@@ -90,7 +90,6 @@ class RPG:
         else:
             if dano >= 1:
                 self.verificador(dano - 1)
-
 # ------------------------------------ Batalha -------------------------------------------------------------------
     def tela_batalha(self, personagem, inimigo, dano: int, vida: int):
         if inimigo == 'minotaur' or inimigo == 'evil cleric':
@@ -133,13 +132,20 @@ class RPG:
         grupo_sprites.add(inimigo)
 
         barra_vida = pontos_vida
-        img_coracao = coracao
 
         self.vida_inimigo = vida
         self.imagem = txt_vitoria
 
         ataque = False
+        esquiva = False
+        especial = False
         errou_ataque = False
+        acertou_ataque = False
+        errou_esquiva = False
+        acertou_esquiva = False
+        errou_especial = False
+        acertou_especial = False
+
         self.batalha = True
         while self.batalha:
             self.clock.tick(10)
@@ -150,15 +156,18 @@ class RPG:
                     exit()
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_a:
+                        esquiva = False
                         ataque = True
                         self.dado = randint(1, 6)
                         if self.dado >= 4:
+                            acertou_ataque = True
                             errou_ataque = False
                             self.dano = 3
                             self.verificador(self.dano)
                             personagem.atack()
                         else:
                             errou_ataque = True
+                            acertou_ataque = False
 
                         if dano > self.vida_personagem:
                             self.vida_personagem = 0
@@ -167,9 +176,36 @@ class RPG:
                         inimigo.atack()
 
                     if event.key == pg.K_z:
+                        ataque = False
+                        esquiva = True
                         inimigo.atack()
-                        self.vida_personagem += 0
-                        self.vida_inimigo += 0
+                        self.dado = randint(1,6)
+                        if self.dado >= 4:
+                            acertou_esquiva = True
+                            errou_esquiva = False
+                            self.dano = 1
+                            self.verificador(self.dano)
+                            personagem.atack()
+                        else:
+                            errou_esquiva = True
+                            acertou_esquiva = False
+                            self.vida_personagem -= dano
+                    
+                    if event.key == pg.K_s:
+                        ataque = False
+                        esquiva = False
+                        especial = True
+                        self.dado = randint(1,6)
+                        if self.dado == 6:
+                            acertou_especial = True
+                            errou_especial = False
+                            self.dano = 10
+                            self.verificador(self.dano)
+                            personagem.atack()
+                        else:
+                            errou_especial = True
+                            acertou_especial = False
+                            self.vida_personagem -= dano
 
                 indice = self.dado - 1
 
@@ -179,16 +215,38 @@ class RPG:
             inimigo.carregar()
 
             self.tela.blit(txt_informacao_batalha, (270, 500))
+            self.tela.blit(barra_vida[self.vida_personagem - 1], (0, 0))
+            self.tela.blit(barra_vida[self.vida_inimigo - 1], (467, 0))
 
             if errou_ataque:
+                self.tela.fill((0,0,0))
                 self.tela.blit(txt_errou_ataque, (0,0))
-            if ataque:
+            elif acertou_ataque:
+                self.tela.fill((0,0,0))
+                self.tela.blit(txt_acertou_ataque, (0,0))
+            if errou_esquiva:
+                self.tela.fill((0,0,0))
+                self.tela.blit(txt_errou_esquiva, (0,0))
+            elif acertou_esquiva:
+                self.tela.fill((0,0,0))
+                self.tela.blit(txt_acertou_esquiva, (0,0))
+            if errou_especial:
+                self.tela.fill((0,0,0))
+                self.tela.blit(txt_errou_especial, (0,0))
+            elif acertou_especial:
+                self.tela.fill((0,0,0))
+                self.tela.blit(txt_acertou_especial, (0,0))
+            if ataque or esquiva:
                 self.tela.blit(lista_dados[indice], (0,0))
-            
-            self.tela.blit(barra_vida[self.vida_personagem - 1], (125, 70))
-            self.tela.blit(barra_vida[self.vida_inimigo - 1], (467, 70))
-            self.tela.blit(img_coracao, (95, 57))
-            self.tela.blit(img_coracao, (435, 57))
+
+            self.tela.blit(imgBatalha, (areaImgBatalha.x, areaImgBatalha.y))
+            grupo_sprites.draw(self.tela)
+            personagem.carregar()
+            inimigo.carregar()
+
+            self.tela.blit(txt_informacao_batalha, (270, 500))
+            self.tela.blit(barra_vida[self.vida_personagem - 1], (0, 0))
+            self.tela.blit(barra_vida[self.vida_inimigo - 1], (467, 0))
 
             if self.vida_personagem == 0:
                 self.tela.blit(txt_derrota, (150, 200))

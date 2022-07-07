@@ -156,6 +156,7 @@ class RPG:
                     exit()
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_a:
+                        especial = False
                         esquiva = False
                         ataque = True
                         self.dado = randint(1, 6)
@@ -176,6 +177,7 @@ class RPG:
                         inimigo.atack()
 
                     if event.key == pg.K_z:
+                        especial = False
                         ataque = False
                         esquiva = True
                         inimigo.atack()
@@ -218,25 +220,29 @@ class RPG:
             self.tela.blit(barra_vida[self.vida_personagem - 1], (0, 0))
             self.tela.blit(barra_vida[self.vida_inimigo - 1], (467, 0))
 
-            if errou_ataque:
-                self.tela.fill((0,0,0))
-                self.tela.blit(txt_errou_ataque, (0,0))
-            elif acertou_ataque:
-                self.tela.fill((0,0,0))
-                self.tela.blit(txt_acertou_ataque, (0,0))
-            if errou_esquiva:
-                self.tela.fill((0,0,0))
-                self.tela.blit(txt_errou_esquiva, (0,0))
-            elif acertou_esquiva:
-                self.tela.fill((0,0,0))
-                self.tela.blit(txt_acertou_esquiva, (0,0))
-            if errou_especial:
-                self.tela.fill((0,0,0))
-                self.tela.blit(txt_errou_especial, (0,0))
-            elif acertou_especial:
-                self.tela.fill((0,0,0))
-                self.tela.blit(txt_acertou_especial, (0,0))
-            if ataque or esquiva:
+            if ataque:
+                if errou_ataque:
+                    self.tela.fill((0,0,0))
+                    self.tela.blit(txt_errou_ataque, (0,0))
+                elif acertou_ataque:
+                    self.tela.fill((0,0,0))
+                    self.tela.blit(txt_acertou_ataque, (0,0))
+            if esquiva:
+                if errou_esquiva:
+                    self.tela.fill((0,0,0))
+                    self.tela.blit(txt_errou_esquiva, (0,0))
+                elif acertou_esquiva:
+                    self.tela.fill((0,0,0))
+                    self.tela.blit(txt_acertou_esquiva, (0,0))
+            if especial:
+                if errou_especial:
+                    self.tela.fill((0,0,0))
+                    self.tela.blit(txt_errou_especial, (0,0))
+                elif acertou_especial:
+                    self.tela.fill((0,0,0))
+                    self.tela.blit(txt_acertou_especial, (0,0))
+
+            if ataque or esquiva or especial:
                 self.tela.blit(lista_dados[indice], (0,0))
 
             self.tela.blit(imgBatalha, (areaImgBatalha.x, areaImgBatalha.y))
@@ -266,6 +272,10 @@ class RPG:
             pg.display.flip()
 
     def tela_vitoria_cassio(self):
+        pg.mixer.music.play()
+        som_batalha.stop()
+        som_batalha_final.stop()
+
         self.vitoria_Cassio = True
         while self.vitoria_Cassio:
             self.clock.tick(10)
@@ -288,6 +298,10 @@ class RPG:
             pg.display.flip()
 
     def tela_vitoria_pietra(self):
+        pg.mixer.music.play()
+        som_batalha.stop()
+        som_batalha_final.stop()
+
         self.vitoria_pietra = True
         while self.vitoria_pietra:
             self.clock.tick(10)
@@ -297,6 +311,8 @@ class RPG:
                 if event.type == pg.QUIT:
                     pg.quit()
                     exit()
+                if pg.key.get_pressed()[pg.K_r]:
+                    self.loop_game()
 
             self.tela.blit(imgBatalha, (areaImgBatalha.x, areaImgBatalha.y))
             self.tela.blit(imagem_cassio, (280, 300))
@@ -643,10 +659,12 @@ class RPG:
 
             pg.display.flip()
             pg.display.update()
-
 # ---------------------------------- Tela de Pause ----------------------------------------------------------------
-
     def tela_pause(self):
+        pg.mixer.music.play()
+        som_batalha.stop()
+        som_batalha_final.stop()
+
         pauseLoop = True
         while pauseLoop:
             self.tela.fill((67, 54, 55))
@@ -685,7 +703,6 @@ class RPG:
 # --------------------------------- Main Loop ------------------------------------------------------------------
 
     def loop_game(self):
-
         pg.display.set_caption(self.nome)
         self.clock = pg.time.Clock()
         self.telaX, self.telaY = self.x, self.y

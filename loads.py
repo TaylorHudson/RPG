@@ -23,12 +23,16 @@ txt_opc_habilidade = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/opcaoHabilida
 txt_derrota = pg.image.load('IMAGENS/INFOS/txtDerrota.png')
 txt_ultima_vitoria = pg.image.load('IMAGENS/INFOS/txtUltimaVitoria.png')
 txt_informacao_batalha = pg.image.load('IMAGENS/INFOS/informacao_de_batalha.png')
+
 txt_errou_ataque = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/errou_ataque.png')
 txt_acertou_ataque = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/acertou_ataque.png')
+
 txt_errou_esquiva = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/errou_esquiva.png')
 txt_acertou_esquiva = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/acertou_esquiva.png')
+
 txt_errou_especial = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/errou_especial.png')
 txt_acertou_especial = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/acertou_especial.png')
+
 agradecimentoPietra = pg.image.load('IMAGENS/INFOS/agradecimentoPietra.png')
 respostaCassio = pg.image.load('IMAGENS/INFOS/respostaCassio.png')
 agradecimentoCassio = pg.image.load('IMAGENS/INFOS/agradecimentoCassio.png')

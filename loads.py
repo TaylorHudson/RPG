@@ -6,7 +6,6 @@ def spriteLista(lista, finalRange, local):
     for i in range(1, finalRange-1):
         lista.append(pg.image.load('%s%s.png' % (local, i)))
 
-
 def spriteListaEscala(lista, img, finalRange):
     for i in range(finalRange-2):
         lista.append(pg.transform.scale(img[i], (img[0].get_width()*1.05, img[0].get_height()*1.05)))
@@ -22,17 +21,22 @@ txt_vitoria = pg.image.load('IMAGENS/INFOS/txtVitoria2.png')
 txt_opc_habilidade = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/opcaoHabilidade.png')
 txt_derrota = pg.image.load('IMAGENS/INFOS/txtDerrota.png')
 txt_ultima_vitoria = pg.image.load('IMAGENS/INFOS/txtUltimaVitoria.png')
-txt_informacao_batalha = pg.image.load('IMAGENS/INFOS/informacao_de_batalha.png')
-
+txt_informacao_batalha_pietra = pg.image.load('IMAGENS/INFOS/informacao_de_batalha.png')
+txt_informacao_batalha_cassio = pg.image.load('IMAGENS/INFOS/informacao_de_batalha_cassio.png')
 txt_errou_ataque = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/errou_ataque.png')
 txt_acertou_ataque = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/acertou_ataque.png')
-
 txt_errou_esquiva = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/errou_esquiva.png')
 txt_acertou_esquiva = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/acertou_esquiva.png')
-
 txt_errou_especial = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/errou_especial.png')
 txt_acertou_especial = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/acertou_especial.png')
-
+txt_errou_cura = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/errou_cura.png')
+txt_acertou_cura = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/acertou_cura.png')
+txtPause = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/pause.png')
+areaTxtPause = txtPause.get_rect(x=250, y=10)
+escala_txt_inicial = pg.transform.scale(txt_inicial,(txt_inicial.get_rect().h*3.1, txt_inicial.get_rect().w*2.5))
+txtCreditos = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/creditos.png')
+areaTxtCreditos = txtCreditos.get_rect(x=200, y=180)
+txtCreditosEscala = pg.transform.scale(txtCreditos, (areaTxtCreditos.w * 1, areaTxtCreditos.h * 1))
 agradecimentoPietra = pg.image.load('IMAGENS/INFOS/agradecimentoPietra.png')
 respostaCassio = pg.image.load('IMAGENS/INFOS/respostaCassio.png')
 agradecimentoCassio = pg.image.load('IMAGENS/INFOS/agradecimentoCassio.png')
@@ -68,7 +72,8 @@ pg.image.load('IMAGENS/INFOS/DADOS/6.png'),
 ]
 
 # Carregar imagens
-escala_txt_inicial = pg.transform.scale(txt_inicial,(txt_inicial.get_rect().h*3.1, txt_inicial.get_rect().w*2.5))
+ficha_pietra = pg.image.load('IMAGENS/PERSONAGENS/PIETRA/SPRITE/ficha_pietra.png')
+ficha_cassio = pg.image.load('IMAGENS/PERSONAGENS/CÁSSIO/SPRITE/ficha_cassio.png')
 
 btnJogar = pg.image.load('IMAGENS/BOTÕES/btnJogar.png')
 areaBtnJogar = btnJogar.get_rect(x=800 / 2 - btnJogar.get_width() / 2, y=btnJogar.get_height())
@@ -85,16 +90,9 @@ btnSairEscala = pg.transform.scale(btnSair, (areaBtnSair.w * 1.05, areaBtnSair.h
 btnVoltar = pg.image.load('IMAGENS/BOTÕES/voltar.png')
 areaBtnVoltar = btnVoltar.get_rect(x=10, y=10)
 
-txtCreditos = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/creditos.png')
-areaTxtCreditos = txtCreditos.get_rect(x=200, y=180)
-txtCreditosEscala = pg.transform.scale(txtCreditos, (areaTxtCreditos.w * 1, areaTxtCreditos.h * 1))
-
 btnContinuar = pg.image.load('IMAGENS/BOTÕES/btnContinuar.png')
 areaBtnContinuar = btnContinuar.get_rect(x=250, y=200)
 btnContinuarEscala = pg.transform.scale(btnContinuar, (areaBtnContinuar.w * 1.05, areaBtnContinuar.h * 1.05))
-
-txtPause = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/pause.png')
-areaTxtPause = txtPause.get_rect(x=250, y=10)
 
 imgBatalha = pg.image.load('IMAGENS/FUNDO/fundoBatalha/fundoBatalha2.png')
 areaImgBatalha = imgBatalha.get_rect(x=15, y=40)
@@ -124,6 +122,20 @@ sprites_porta.append(pg.image.load('IMAGENS/FUNDO/PORTA/1.png'))
 sprites_porta.append(pg.image.load('IMAGENS/FUNDO/PORTA/2.png'))
 sprites_porta.append(pg.image.load('IMAGENS/FUNDO/PORTA/3.png'))
 sprites_porta.append(pg.image.load('IMAGENS/FUNDO/PORTA/4.png'))
+
+cassio_ataque_especial = [
+pg.image.load('IMAGENS/PERSONAGENS/CÁSSIO/SPRITE/ESPECIAL/0.png'),
+pg.image.load('IMAGENS/PERSONAGENS/CÁSSIO/SPRITE/ESPECIAL/1.png'),
+pg.image.load('IMAGENS/PERSONAGENS/CÁSSIO/SPRITE/ESPECIAL/2.png'),
+pg.image.load('IMAGENS/PERSONAGENS/CÁSSIO/SPRITE/ESPECIAL/3.png'),
+pg.image.load('IMAGENS/PERSONAGENS/CÁSSIO/SPRITE/ESPECIAL/4.png'),
+pg.image.load('IMAGENS/PERSONAGENS/CÁSSIO/SPRITE/ESPECIAL/5.png'),
+pg.image.load('IMAGENS/PERSONAGENS/CÁSSIO/SPRITE/ESPECIAL/6.png'),
+pg.image.load('IMAGENS/PERSONAGENS/CÁSSIO/SPRITE/ESPECIAL/7.png'),
+pg.image.load('IMAGENS/PERSONAGENS/CÁSSIO/SPRITE/ESPECIAL/8.png'),
+pg.image.load('IMAGENS/PERSONAGENS/CÁSSIO/SPRITE/ESPECIAL/9.png'),
+pg.image.load('IMAGENS/PERSONAGENS/CÁSSIO/SPRITE/ESPECIAL/10.png'),
+]
 
 cassio_ataque = []
 cassio_ataque.append(pg.image.load('IMAGENS/PERSONAGENS/CÁSSIO/SPRITE/ATAQUE/1.png'))
@@ -162,8 +174,6 @@ ghost_ataque.append(pg.image.load('IMAGENS/INIMIGOS/Ghost/ATAQUE/38.png'))
 ghost_ataque.append(pg.image.load('IMAGENS/INIMIGOS/Ghost/ATAQUE/39.png'))
 ghost_ataque.append(pg.image.load('IMAGENS/INIMIGOS/Ghost/ATAQUE/40.png'))
 ghost_ataque.append(pg.image.load('IMAGENS/INIMIGOS/Ghost/ATAQUE/41.png'))
-
-ghost_morte = []
 
 imp_ataque = []
 imp_ataque.append(pg.image.load('IMAGENS/INIMIGOS/Imp/ATAQUE/32.png'))

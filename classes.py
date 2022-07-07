@@ -7,17 +7,32 @@ class Cassio(pg.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
         self.atacar = False
+        self.atacar_especial = False
 
         self.cassio_ataque = loads.cassio_ataque
+        self.cassio_ataque_especial = loads.cassio_ataque_especial
         self.cont_sprites_ataque = 0
+        self.cont_sprites_ataque_especial = 0
         self.image = self.cassio_ataque[self.cont_sprites_ataque]
         self.rect = self.image.get_rect()
         self.rect.topleft = [x, y]
+
+    def atack_especial(self):
+        self.atacar_especial = True
 
     def atack(self):
         self.atacar = True
 
     def carregar(self):
+        if self.atacar_especial:
+            self.cont_sprites_ataque_especial += 1
+
+            if self.cont_sprites_ataque_especial >= len(self.cassio_ataque_especial):
+                self.cont_sprites_ataque_especial = 0
+                self.atacar_especial = False
+
+            self.image = self.cassio_ataque_especial[self.cont_sprites_ataque_especial]
+
         if self.atacar:
             self.cont_sprites_ataque += 1
 

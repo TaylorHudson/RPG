@@ -32,10 +32,14 @@ txt_acertou_esquiva = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/HABILIDADES/
 
 txt_errou_especial = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/HABILIDADES/errou_especial.png')
 txt_acertou_especial = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/HABILIDADES/acertou_especial.png')
+txt_limite_especial = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/HABILIDADES/limite_especial.png')
+txt_batalha = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/txt_batalha.png')
 
 txt_errou_cura = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/HABILIDADES/errou_cura.png')
 txt_acertou_cura = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/HABILIDADES/acertou_cura.png')
 txt_limite_cura = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/HABILIDADES/limite_cura.png')
+
+txt_jogar_novamente = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/jogar_novamente.png')
 
 txtPause = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/pause.png')
 areaTxtPause = txtPause.get_rect(x=250, y=10)
@@ -52,6 +56,7 @@ respostaPietra = pg.image.load('IMAGENS/INFOS/respostaPietra.png')
 imagem_pontos_fala = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/pontos_Fala.png')
 imagem_cassio = pg.image.load('IMAGENS/PERSONAGENS/CÁSSIO/SPRITE/PARADO/1.png')
 imagem_pietra = pg.image.load('IMAGENS/PERSONAGENS/PIETRA/SPRITE/PARADO/1.png')
+icon = pg.image.load('IMAGENS/INFOS/icon_game.png')
 escolhaPortas = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/escolhaPortas.png')
 
 # pontos de vida
@@ -95,6 +100,7 @@ btnSairEscala = pg.transform.scale(btnSair, (areaBtnSair.w * 1.05, areaBtnSair.h
 
 btnVoltar = pg.image.load('IMAGENS/BOTÕES/voltar.png')
 areaBtnVoltar = btnVoltar.get_rect(x=10, y=10)
+btnVoltarEscala = pg.transform.scale(btnVoltar, (areaBtnVoltar.w * 1.05, areaBtnVoltar.h * 1.05))
 
 btnContinuar = pg.image.load('IMAGENS/BOTÕES/btnContinuar.png')
 areaBtnContinuar = btnContinuar.get_rect(x=250, y=200)

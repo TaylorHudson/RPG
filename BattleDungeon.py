@@ -1,3 +1,4 @@
+from pygame import KEYDOWN
 import classes
 from sys import exit
 from random import randint
@@ -11,8 +12,7 @@ class RPG:
         self.x, self.y = x, y
 
         pg.font.init()
-        fonte = pg.font.get_default_font()
-        self.fontePequena = pg.font.SysFont(fonte, 35)
+        self.fonte = pg.font.SysFont('Pixellari', 45)
 
         pg.mixer.music.set_volume(0.4)
         pg.mixer.music.play(-1)
@@ -27,6 +27,8 @@ class RPG:
         self.dado = 0
 
         self.paused = False
+
+        self.numero_da_batalha = 1
 # --------------------------------------------- Tela créditos ------------------------------------------------------------
     def tela_creditos(self):
         creditoLoop = True
@@ -35,7 +37,6 @@ class RPG:
             self.tela.fill((67, 54, 55))
 
             colisaoBtnVoltar = areaBtnVoltar.collidepoint(pg.mouse.get_pos())
-            self.tela.blit(btnVoltar, (areaBtnVoltar.x, areaBtnVoltar.y))
             self.tela.blit(txtCreditos, (areaTxtCreditos.x, areaTxtCreditos.y))
 
             for event in pg.event.get():
@@ -43,11 +44,15 @@ class RPG:
                     pg.quit()
                     exit()
 
-                elif event.type == pg.MOUSEBUTTONDOWN and colisaoBtnVoltar:
-                    creditoLoop = False
-
                 elif pg.key.get_pressed()[pg.K_ESCAPE]:
                     creditoLoop = False
+            
+            if colisaoBtnVoltar:
+                self.tela.blit(btnVoltarEscala, (areaBtnVoltar.x * 0.975, areaBtnVoltar.y * 0.975))
+                if pg.mouse.get_pressed()[0]:
+                    creditoLoop = False
+            else:
+                self.tela.blit(btnVoltar, (areaBtnVoltar.x, areaBtnVoltar.y))
 
             pg.display.update()
             pg.display.flip()
@@ -95,6 +100,11 @@ class RPG:
     def tela_batalha(self, personagem, inimigo, dano: int, vida: int):
         escolha = personagem
 
+        if inimigo == 'red orc' or inimigo == 'hunter orc' or inimigo == 'ghost' or inimigo == 'yellow ghost':
+            imagem = txt_ultima_vitoria
+        else:
+            imagem = txt_vitoria
+
         if inimigo == 'minotaur' or inimigo == 'evil cleric':
             pg.mixer.music.pause()
             som_batalha.stop()
@@ -137,7 +147,6 @@ class RPG:
         barra_vida = pontos_vida
 
         self.vida_inimigo = vida
-        self.imagem = txt_vitoria
 
         ataque = False
         esquiva = False
@@ -147,6 +156,10 @@ class RPG:
         qnt_tentativa_cura = 0
         qnt_acerto_cura = 0 
         limite_cura = False
+
+        qnt_tentativa_especial = 0
+        qnt_acerto_especial = 0
+        limite_especial = 0
 
         errou_ataque = False
         errou_esquiva = False
@@ -210,20 +223,29 @@ class RPG:
                                 self.vida_personagem -= dano
                         
                         if event.key == pg.K_s:
+                            qnt_tentativa_especial += 1
                             ataque = False
                             esquiva = False
                             especial = True
-                            self.dado = randint(1,6)
-                            if self.dado == 6:
-                                acertou_especial = True
-                                errou_especial = False
-                                self.dano = 8
-                                self.verificador(self.dano)
-                                personagem.atack_especial()
-                            else:
-                                errou_especial = True
-                                acertou_especial = False
-                                self.vida_personagem -= dano
+                            if qnt_tentativa_especial <= 3:
+                                self.dado = randint(1,6)
+                                if self.dado == 6:
+                                    qnt_acerto_especial += 1
+                                    if qnt_acerto_especial <= 1:
+                                        acertou_especial = True
+                                        errou_especial = False
+                                        self.dano = 8
+                                        self.verificador(self.dano)
+                                        personagem.atack_especial()
+                                    elif qnt_acerto_especial > 1:
+                                        limite_especial = True
+                                else:
+                                    errou_especial = True
+                                    acertou_especial = False
+                                    self.vida_personagem -= dano
+                            elif qnt_tentativa_especial > 3:
+                                limite_especial = True
+
                     if escolha == 'pietra':
                         if event.key == pg.K_a:
                             cura = False
@@ -301,6 +323,10 @@ class RPG:
             personagem.carregar()
             inimigo.carregar()
 
+            self.tela.blit(txt_batalha, (0,0))
+            txt_numero_batalha = self.fonte.render(str(self.numero_da_batalha), True, (255,255,255))
+            self.tela.blit(txt_numero_batalha, (450,75))
+
             if escolha == 'cassio':
                 self.tela.blit(txt_informacao_batalha_cassio, (270, 500))
                 if ataque:
@@ -318,6 +344,9 @@ class RPG:
                         self.tela.fill((0,0,0))
                         self.tela.blit(txt_acertou_esquiva, (0,0))
                 elif especial:
+                    if limite_especial:
+                        self.tela.fill((0,0,0))
+                        self.tela.blit(txt_limite_cura, (0,0))
                     if errou_especial:
                         self.tela.fill((0,0,0))
                         self.tela.blit(txt_errou_especial, (0,0))
@@ -368,6 +397,10 @@ class RPG:
             personagem.carregar()
             inimigo.carregar()
 
+            self.tela.blit(txt_batalha, (0,0))
+            txt_numero_batalha = self.fonte.render(str(self.numero_da_batalha), True, (255,255,255))
+            self.tela.blit(txt_numero_batalha, (450,75))
+
             if escolha == 'cassio':
                self.tela.blit(txt_informacao_batalha_cassio, (270, 500))
             elif escolha == 'pietra':
@@ -384,8 +417,9 @@ class RPG:
                     self.tela_escolha()
 
             if self.vida_inimigo == 0:
-                self.tela.blit(self.imagem, (150, 200))
+                self.tela.blit(imagem, (150, 200))
                 if pg.key.get_pressed()[pg.K_c]:
+                    self.numero_da_batalha += 1
                     self.vida_inimigo = 10
                     self.vida_personagem = 10
                     return 'ganhou'
@@ -407,7 +441,10 @@ class RPG:
                 if event.type == pg.QUIT:
                     pg.quit()
                     exit()
+                if event.type == KEYDOWN:
+                    self.loop_game()
 
+            self.tela.blit(txt_jogar_novamente, (0,0))
             self.tela.blit(imgBatalha, (areaImgBatalha.x, areaImgBatalha.y))
             self.tela.blit(imagem_cassio, (200, 220))
             self.tela.blit(imagem_pietra, (280, 300))
@@ -433,9 +470,10 @@ class RPG:
                 if event.type == pg.QUIT:
                     pg.quit()
                     exit()
-                if pg.key.get_pressed()[pg.K_r]:
+                if event.type == KEYDOWN:
                     self.loop_game()
 
+            self.tela.blit(txt_jogar_novamente, (0,0))
             self.tela.blit(imgBatalha, (areaImgBatalha.x, areaImgBatalha.y))
             self.tela.blit(imagem_cassio, (280, 300))
             self.tela.blit(imagem_pietra, (200, 220))
@@ -834,6 +872,7 @@ class RPG:
         self.clock = pg.time.Clock()
         self.telaX, self.telaY = self.x, self.y
         self.tela = pg.display.set_mode((self.telaX, self.telaY))
+        pg.display.set_icon(icon)
 
         menuLoop = True
         while menuLoop:
@@ -872,5 +911,5 @@ class RPG:
             pg.display.update()
             pg.display.flip()
 
-jogo = RPG("game", 800, 600)
+jogo = RPG("Battle Dungeon", 800, 600)
 jogo.loop_game()

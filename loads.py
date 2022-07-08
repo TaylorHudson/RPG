@@ -23,14 +23,20 @@ txt_derrota = pg.image.load('IMAGENS/INFOS/txtDerrota.png')
 txt_ultima_vitoria = pg.image.load('IMAGENS/INFOS/txtUltimaVitoria.png')
 txt_informacao_batalha_pietra = pg.image.load('IMAGENS/INFOS/informacao_de_batalha.png')
 txt_informacao_batalha_cassio = pg.image.load('IMAGENS/INFOS/informacao_de_batalha_cassio.png')
-txt_errou_ataque = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/errou_ataque.png')
-txt_acertou_ataque = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/acertou_ataque.png')
-txt_errou_esquiva = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/errou_esquiva.png')
-txt_acertou_esquiva = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/acertou_esquiva.png')
-txt_errou_especial = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/errou_especial.png')
-txt_acertou_especial = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/acertou_especial.png')
-txt_errou_cura = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/errou_cura.png')
-txt_acertou_cura = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/acertou_cura.png')
+
+txt_errou_ataque = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/HABILIDADES/errou_ataque.png')
+txt_acertou_ataque = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/HABILIDADES/acertou_ataque.png')
+
+txt_errou_esquiva = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/HABILIDADES/errou_esquiva.png')
+txt_acertou_esquiva = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/HABILIDADES/acertou_esquiva.png')
+
+txt_errou_especial = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/HABILIDADES/errou_especial.png')
+txt_acertou_especial = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/HABILIDADES/acertou_especial.png')
+
+txt_errou_cura = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/HABILIDADES/errou_cura.png')
+txt_acertou_cura = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/HABILIDADES/acertou_cura.png')
+txt_limite_cura = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/HABILIDADES/limite_cura.png')
+
 txtPause = pg.image.load('IMAGENS/INFOS/TEXTOS SEM FUNDO/pause.png')
 areaTxtPause = txtPause.get_rect(x=250, y=10)
 escala_txt_inicial = pg.transform.scale(txt_inicial,(txt_inicial.get_rect().h*3.1, txt_inicial.get_rect().w*2.5))

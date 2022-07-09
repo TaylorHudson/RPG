@@ -866,7 +866,7 @@ class RPG:
 
             pg.display.update()
             pg.display.flip()
-# --------------------------------- Main Loop ------------------------------------------------------------------
+# ------------------------------------------- Main Loop ------------------------------------------------------------------
     def loop_game(self):
         pg.display.set_caption(self.nome)
         self.clock = pg.time.Clock()

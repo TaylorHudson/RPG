@@ -5,11 +5,11 @@ from random import randint
 from loads import *
 
 class RPG:
-    def __init__(self, nome: str, x, y):
+    def __init__(self, nome):
         pg.init()
         pg.display.init()
         self.nome = nome
-        self.x, self.y = x, y
+        self.x, self.y = 800, 600
 
         pg.font.init()
         self.fonte = pg.font.SysFont('Pixellari', 45)
@@ -910,6 +910,3 @@ class RPG:
                 self.tela.blit(btnSair, (areaBtnSair.x, areaBtnSair.y))
             pg.display.update()
             pg.display.flip()
-
-jogo = RPG("Battle Dungeon", 800, 600)
-jogo.loop_game()

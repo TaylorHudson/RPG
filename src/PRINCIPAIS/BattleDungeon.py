@@ -1,4 +1,3 @@
-from pygame import KEYDOWN
 import classes
 from sys import exit
 from random import randint
@@ -100,7 +99,7 @@ class RPG:
     def tela_batalha(self, personagem, inimigo, dano: int, vida: int):
         escolha = personagem
 
-        if inimigo == 'red orc' or inimigo == 'hunter orc' or inimigo == 'ghost' or inimigo == 'yellow ghost':
+        if inimigo == 'minotaur' or inimigo == 'evil cleric':
             imagem = txt_ultima_vitoria
         else:
             imagem = txt_vitoria
@@ -110,7 +109,7 @@ class RPG:
             som_batalha.stop()
             som_batalha_final.set_volume(0.4)
             som_batalha_final.play(-1)
-        else:
+        if self.numero_da_batalha == 1:
             pg.mixer.music.pause()
             som_batalha.set_volume(0.4)
             som_batalha.play(-1)
@@ -223,10 +222,10 @@ class RPG:
                                 self.vida_personagem -= dano
                         
                         if event.key == pg.K_s:
-                            qnt_tentativa_especial += 1
                             ataque = False
                             esquiva = False
                             especial = True
+                            qnt_tentativa_especial += 1
                             if qnt_tentativa_especial <= 3:
                                 self.dado = randint(1,6)
                                 if self.dado == 6:
@@ -237,13 +236,13 @@ class RPG:
                                         self.dano = 8
                                         self.verificador(self.dano)
                                         personagem.atack_especial()
-                                    elif qnt_acerto_especial > 1:
+                                    elif qnt_acerto_especial >= 1:
                                         limite_especial = True
                                 else:
                                     errou_especial = True
                                     acertou_especial = False
                                     self.vida_personagem -= dano
-                            elif qnt_tentativa_especial > 3:
+                            elif qnt_tentativa_especial >= 3:
                                 limite_especial = True
 
                     if escolha == 'pietra':
@@ -286,11 +285,11 @@ class RPG:
                                 self.vida_personagem -= dano
                         
                         if event.key == pg.K_s:
+                            ataque = False
+                            esquiva = False
+                            cura = True
                             qnt_tentativa_cura += 1
                             if qnt_tentativa_cura <= 5:
-                                ataque = False
-                                esquiva = False
-                                cura = True
                                 self.dado = randint(1,6)
                                 if self.dado >= 4:
                                     qnt_acerto_cura += 1
@@ -301,13 +300,13 @@ class RPG:
                                             self.vida_personagem += 2
                                         elif self.vida_personagem == 9:
                                             self.vida_personagem += 1
-                                    elif qnt_acerto_cura > 3:
+                                    elif qnt_acerto_cura >= 3:
                                         limite_cura = True
                                 else:
                                     errou_cura = True
                                     acertou_cura = False
                                     self.vida_personagem -= dano
-                            elif qnt_tentativa_cura > 5:
+                            elif qnt_tentativa_cura >= 5:
                                 limite_cura = True
 
                     indice = self.dado - 1
@@ -346,8 +345,8 @@ class RPG:
                 elif especial:
                     if limite_especial:
                         self.tela.fill((0,0,0))
-                        self.tela.blit(txt_limite_cura, (0,0))
-                    if errou_especial:
+                        self.tela.blit(txt_limite_especial, (0,0))
+                    elif errou_especial:
                         self.tela.fill((0,0,0))
                         self.tela.blit(txt_errou_especial, (0,0))
                     elif acertou_especial:
@@ -410,6 +409,8 @@ class RPG:
             self.tela.blit(barra_vida[self.vida_inimigo - 1], (467, 0))
 
             if self.vida_personagem == 0:
+                som_batalha.stop()
+                pg.mixer.music.play()
                 self.tela.blit(txt_derrota, (150, 200))
                 if pg.key.get_pressed()[pg.K_r]:
                     self.vida_inimigo = 10

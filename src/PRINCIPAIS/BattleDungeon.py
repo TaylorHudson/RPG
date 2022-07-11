@@ -28,11 +28,13 @@ class RPG:
 
         self.numero_da_batalha = 1
         self.musica_ligada = False
+        self.som_batalha_ligado = False
 # --------------------------------------------- Tela créditos ------------------------------------------------------------
     def tela_creditos(self):
         creditoLoop = True
         while creditoLoop:
             if self.musica_ligada == False:
+                self.musica_ligada = True
                 pg.mixer.music.play()
 
             self.clock.tick(10)
@@ -68,11 +70,10 @@ class RPG:
         grupo_sprites.add(porta1)
         grupo_sprites.add(porta2)
 
+        
+
         self.escolha_portas = True
         while self.escolha_portas:
-            if self.musica_ligada == False:
-                pg.mixer.music.play()
-
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     pg.quit()
@@ -114,16 +115,14 @@ class RPG:
             imagem = txt_vitoria
 
         if inimigo == 'minotaur' or inimigo == 'evil cleric':
-            self.musica_ligada = False
-            pg.mixer.music.pause()
             som_batalha.stop()
             som_batalha_final.set_volume(0.4)
             som_batalha_final.play(-1)
-        if self.numero_da_batalha == 1:
-            self.musica_ligada = False
-            pg.mixer.music.pause()
-            som_batalha.set_volume(0.4)
-            som_batalha.play(-1)
+        if self.numero_da_batalha == 1 or self.numero_da_batalha == 2 or self.numero_da_batalha == 3:
+            if self.som_batalha_ligado == False:
+                som_batalha.set_volume(0.4)
+                self.som_batalha_ligado = True
+                som_batalha.play(-1)
 
         if personagem == 'cassio':
             personagem = classes.Cassio(200, 250)
@@ -323,7 +322,9 @@ class RPG:
                     indice = self.dado - 1
             
             if self.paused:
+                self.som_batalha_ligado = False
                 som_batalha.stop()
+                self.musica_ligada = True
                 pg.mixer.music.play()
                 self.tela_pause()
                 continue
@@ -422,6 +423,7 @@ class RPG:
             if self.vida_personagem == 0:
 
                 som_batalha_final.stop()
+                self.som_batalha_ligado = False
                 som_batalha.stop()
 
                 self.tela.blit(txt_derrota, (150, 200))
@@ -442,7 +444,11 @@ class RPG:
             pg.display.flip()
 
     def tela_vitoria_cassio(self):
-        pg.mixer.music.play()
+        if self.musica_ligada == False:
+            self.musica_ligada = True
+            pg.mixer.music.play()
+
+        self.som_batalha_ligado = False
         som_batalha.stop()
         som_batalha_final.stop()
 
@@ -471,7 +477,11 @@ class RPG:
             pg.display.flip()
 
     def tela_vitoria_pietra(self):
-        pg.mixer.music.play()
+        if self.musica_ligada == False:
+            self.musica_ligada = True
+            pg.mixer.music.play()
+
+        self.som_batalha_ligado = False
         som_batalha.stop()
         som_batalha_final.stop()
 
@@ -522,9 +532,11 @@ class RPG:
         jogoLoop = True
 
         som_batalha_final.stop()
+        self.som_batalha_ligado = False
         som_batalha.stop()
         if self.musica_ligada == False:
-                pg.mixer.music.play()
+            self.musica_ligada = True
+            pg.mixer.music.play()
 
         while jogoLoop:
             self.clock.tick(10)
@@ -847,11 +859,12 @@ class RPG:
             pg.display.update()
 # ---------------------------------- Tela de Pause ----------------------------------------------------------------
     def tela_pause(self):
+        som_batalha_final.stop()
+        self.som_batalha_ligado = False
+        som_batalha.stop()
+
         pauseLoop = True
         while pauseLoop:
-            som_batalha_final.stop()
-            som_batalha.stop()
-
             self.tela.fill((67, 54, 55))
             self.clock.tick(10)
 
@@ -868,7 +881,9 @@ class RPG:
                 if pg.mouse.get_pressed()[0] == 1:
                     self.tela.fill((67, 54, 55))
                     pauseLoop = False
+                    self.musica_ligada = False
                     pg.mixer.music.pause()
+                    self.som_batalha_ligado = True
                     som_batalha.play()
                     self.paused = False
             else:
@@ -898,9 +913,11 @@ class RPG:
         self.musica_ligada = True
         pg.mixer.music.play(-1)
         som_batalha_final.stop()
+        self.som_batalha_ligado = False
         som_batalha.stop()
 
         if self.musica_ligada == False:
+            self.musica_ligada = True
             pg.mixer.music.play(-1)
 
         menuLoop = True

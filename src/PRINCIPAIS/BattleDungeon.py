@@ -14,7 +14,6 @@ class RPG:
         self.fonte = pg.font.SysFont('Pixellari', 45)
 
         pg.mixer.music.set_volume(0.4)
-        pg.mixer.music.play(-1)
 
         self.vida_personagem = 10
         self.vida_inimigo = 10
@@ -28,10 +27,14 @@ class RPG:
         self.paused = False
 
         self.numero_da_batalha = 1
+        self.musica_ligada = False
 # --------------------------------------------- Tela créditos ------------------------------------------------------------
     def tela_creditos(self):
         creditoLoop = True
         while creditoLoop:
+            if self.musica_ligada == False:
+                pg.mixer.music.play()
+
             self.clock.tick(10)
             self.tela.fill((67, 54, 55))
 
@@ -67,6 +70,9 @@ class RPG:
 
         self.escolha_portas = True
         while self.escolha_portas:
+            if self.musica_ligada == False:
+                pg.mixer.music.play()
+
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     pg.quit()
@@ -97,6 +103,9 @@ class RPG:
                 self.verificador(dano - 1)
 # ------------------------------------ Batalha -------------------------------------------------------------------
     def tela_batalha(self, personagem, inimigo, dano: int, vida: int):
+        self.musica_ligada = False
+        pg.mixer.music.pause()
+
         escolha = personagem
 
         if inimigo == 'minotaur' or inimigo == 'evil cleric':
@@ -105,11 +114,13 @@ class RPG:
             imagem = txt_vitoria
 
         if inimigo == 'minotaur' or inimigo == 'evil cleric':
+            self.musica_ligada = False
             pg.mixer.music.pause()
             som_batalha.stop()
             som_batalha_final.set_volume(0.4)
             som_batalha_final.play(-1)
         if self.numero_da_batalha == 1:
+            self.musica_ligada = False
             pg.mixer.music.pause()
             som_batalha.set_volume(0.4)
             som_batalha.play(-1)
@@ -409,8 +420,10 @@ class RPG:
             self.tela.blit(barra_vida[self.vida_inimigo - 1], (467, 0))
 
             if self.vida_personagem == 0:
+
+                som_batalha_final.stop()
                 som_batalha.stop()
-                pg.mixer.music.play()
+
                 self.tela.blit(txt_derrota, (150, 200))
                 if pg.key.get_pressed()[pg.K_r]:
                     self.vida_inimigo = 10
@@ -442,7 +455,7 @@ class RPG:
                 if event.type == pg.QUIT:
                     pg.quit()
                     exit()
-                if event.type == KEYDOWN:
+                if event.type == pg.KEYDOWN:
                     self.loop_game()
 
             self.tela.blit(txt_jogar_novamente, (0,0))
@@ -471,7 +484,7 @@ class RPG:
                 if event.type == pg.QUIT:
                     pg.quit()
                     exit()
-                if event.type == KEYDOWN:
+                if event.type == pg.KEYDOWN:
                     self.loop_game()
 
             self.tela.blit(txt_jogar_novamente, (0,0))
@@ -507,8 +520,13 @@ class RPG:
     def tela_escolha(self):
         paused = False
         jogoLoop = True
-        while jogoLoop:
 
+        som_batalha_final.stop()
+        som_batalha.stop()
+        if self.musica_ligada == False:
+                pg.mixer.music.play()
+
+        while jogoLoop:
             self.clock.tick(10)
             self.tela.fill((67, 54, 55))
 
@@ -516,16 +534,12 @@ class RPG:
                 if event.type == pg.QUIT:
                     pg.quit()
                     exit()
-                elif event.type == pg.KEYDOWN:
-                    if event.key == pg.K_p:
-                        paused = not paused
-                        self.tela_pause()
-                
                 elif event.type == pg.MOUSEBUTTONDOWN and self.colisaoEscolhaCassio:
                     pg.time.delay(100)
 
                     escolha1 = self.tela_escolha_portas()
                     if escolha1:
+                        self.numero_da_batalha = 1
                         vencedor1 = self.tela_batalha(personagem='cassio', inimigo='imp', dano=1, vida=10)
                         if vencedor1 == 'ganhou':
                             escolha2 = self.tela_escolha_portas()
@@ -591,6 +605,7 @@ class RPG:
                                                     self.tela_vitoria_cassio()
 
                     else:
+                        self.numero_da_batalha = 1
                         vencedor1 = self.tela_batalha(personagem='cassio', inimigo='psionic', dano=1, vida=10)
                         if vencedor1 == 'ganhou':
                             escolha2 = self.tela_escolha_portas()
@@ -677,6 +692,7 @@ class RPG:
 
                     escolha1 = self.tela_escolha_portas()
                     if escolha1:
+                        self.numero_da_batalha = 1
                         vencedor1 = self.tela_batalha(personagem='pietra', inimigo='imp', dano=1, vida=10)
                         if vencedor1 == 'ganhou':
                             escolha2 = self.tela_escolha_portas()
@@ -748,6 +764,7 @@ class RPG:
                                                     self.tela_vitoria_pietra()
 
                     else:
+                        self.numero_da_batalha = 1
                         vencedor1 = self.tela_batalha(personagem='pietra', inimigo='psionic', dano=1, vida=10)
                         if vencedor1 == 'ganhou':
                             escolha2 = self.tela_escolha_portas()
@@ -832,6 +849,9 @@ class RPG:
     def tela_pause(self):
         pauseLoop = True
         while pauseLoop:
+            som_batalha_final.stop()
+            som_batalha.stop()
+
             self.tela.fill((67, 54, 55))
             self.clock.tick(10)
 
@@ -874,6 +894,14 @@ class RPG:
         self.telaX, self.telaY = self.x, self.y
         self.tela = pg.display.set_mode((self.telaX, self.telaY))
         pg.display.set_icon(icon)
+
+        self.musica_ligada = True
+        pg.mixer.music.play(-1)
+        som_batalha_final.stop()
+        som_batalha.stop()
+
+        if self.musica_ligada == False:
+            pg.mixer.music.play(-1)
 
         menuLoop = True
         while menuLoop:

@@ -14,6 +14,7 @@ def spriteListaEscala(lista, img, finalRange):
 musica_jogo = pg.mixer.music.load('src/MUSICAS/som_de_fundo.mpga')
 som_batalha = pg.mixer.Sound('src/MUSICAS/FIGHT.mp3')
 som_batalha_final = pg.mixer.Sound('src/MUSICAS/FINAL_FIGHT.mp3')
+som_game_over = pg.mixer.Sound('src/MUSICAS/game_over.wav')
 
 # texto
 txt_inicial = pg.image.load('src/IMAGENS/INFOS/txtInicio.png')

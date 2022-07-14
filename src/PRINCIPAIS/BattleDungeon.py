@@ -178,10 +178,19 @@ class RPG:
         acertou_especial = False
         acertou_cura = False
 
+        self.botoes_batalha = False
+        self.fim_batalha = False
+
         self.batalha = True
         while self.batalha:
             self.clock.tick(10)
             self.tela.fill((0, 0, 0))
+
+            if self.fim_batalha:
+                self.botoes_batalha = False
+            else:
+                self.botoes_batalha = True
+
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     pg.quit()
@@ -191,135 +200,138 @@ class RPG:
                     if event.key == pg.K_p:
                         self.paused = not self.paused
                     if escolha == 'cassio':
-                        if event.key == pg.K_a:
-                            especial = False
-                            esquiva = False
-                            ataque = True
-                            self.dado = randint(1, 6)
-                            if self.dado >= 4:
-                                acertou_ataque = True
-                                errou_ataque = False
-                                self.dano = 3
-                                self.verificador(self.dano)
-                                personagem.atack()
-                            else:
-                                errou_ataque = True
-                                acertou_ataque = False
-
-                            if dano > self.vida_personagem:
-                                self.vida_personagem = 0
-                            else:
-                                self.vida_personagem -= dano
-                            inimigo.atack()
-
-                        if event.key == pg.K_z:
-                            especial = False
-                            ataque = False
-                            esquiva = True
-                            inimigo.atack()
-                            self.dado = randint(1,6)
-                            if self.dado >= 4:
-                                acertou_esquiva = True
-                                errou_esquiva = False
-                                self.dano = 1
-                                self.verificador(self.dano)
-                                personagem.atack()
-                            else:
-                                errou_esquiva = True
-                                acertou_esquiva = False
-                                self.vida_personagem -= dano
-                        
-                        if event.key == pg.K_s:
-                            ataque = False
-                            esquiva = False
-                            especial = True
-                            qnt_tentativa_especial += 1
-                            if qnt_tentativa_especial <= 3:
-                                self.dado = randint(1,6)
-                                if self.dado == 6:
-                                    qnt_acerto_especial += 1
-                                    if qnt_acerto_especial <= 1:
-                                        acertou_especial = True
-                                        errou_especial = False
-                                        self.dano = 8
-                                        self.verificador(self.dano)
-                                        personagem.atack_especial()
-                                    elif qnt_acerto_especial >= 1:
-                                        limite_especial = True
+                        if self.botoes_batalha == True:
+                            if event.key == pg.K_a:
+                                especial = False
+                                esquiva = False
+                                ataque = True
+                                self.dado = randint(1, 6)
+                                if self.dado >= 4:
+                                    acertou_ataque = True
+                                    errou_ataque = False
+                                    self.dano = 3
+                                    self.verificador(self.dano)
+                                    personagem.atack()
                                 else:
-                                    errou_especial = True
-                                    acertou_especial = False
+                                    errou_ataque = True
+                                    acertou_ataque = False
+
+                                if dano > self.vida_personagem:
+                                    self.vida_personagem = 0
+                                else:
                                     self.vida_personagem -= dano
-                            elif qnt_tentativa_especial >= 3:
-                                limite_especial = True
+                                inimigo.atack()
 
-                    if escolha == 'pietra':
-                        if event.key == pg.K_a:
-                            cura = False
-                            esquiva = False
-                            ataque = True
-                            self.dado = randint(1, 6)
-                            if self.dado >= 5:
-                                acertou_ataque = True
-                                errou_ataque = False
-                                self.dano = 4
-                                self.verificador(self.dano)
-                                personagem.atack()
-                            else:
-                                errou_ataque = True
-                                acertou_ataque = False
-
-                            if dano > self.vida_personagem:
-                                self.vida_personagem = 0
-                            else:
-                                self.vida_personagem -= dano
-                            inimigo.atack()
-
-                        if event.key == pg.K_z:
-                            cura = False
-                            ataque = False
-                            esquiva = True
-                            inimigo.atack()
-                            self.dado = randint(1,6)
-                            if self.dado >= 4:
-                                acertou_esquiva = True
-                                errou_esquiva = False
-                                self.dano = 2
-                                self.verificador(self.dano)
-                                personagem.atack()
-                            else:
-                                errou_esquiva = True
-                                acertou_esquiva = False
-                                self.vida_personagem -= dano
-                        
-                        if event.key == pg.K_s:
-                            ataque = False
-                            esquiva = False
-                            cura = True
-                            qnt_tentativa_cura += 1
-                            if qnt_tentativa_cura <= 5:
+                            if event.key == pg.K_z:
+                                especial = False
+                                ataque = False
+                                esquiva = True
+                                inimigo.atack()
                                 self.dado = randint(1,6)
                                 if self.dado >= 4:
-                                    qnt_acerto_cura += 1
-                                    if qnt_acerto_cura <= 3:
-                                        acertou_cura = True
-                                        errou_cura = False
-                                        if self.vida_personagem <= 8:
-                                            self.vida_personagem += 2
-                                        elif self.vida_personagem == 9:
-                                            self.vida_personagem += 1
-                                    elif qnt_acerto_cura >= 3:
-                                        limite_cura = True
+                                    acertou_esquiva = True
+                                    errou_esquiva = False
+                                    self.dano = 1
+                                    self.verificador(self.dano)
+                                    personagem.atack()
                                 else:
-                                    errou_cura = True
-                                    acertou_cura = False
+                                    errou_esquiva = True
+                                    acertou_esquiva = False
                                     self.vida_personagem -= dano
-                            elif qnt_tentativa_cura >= 5:
-                                limite_cura = True
+                            
+                            if event.key == pg.K_s:
+                                ataque = False
+                                esquiva = False
+                                especial = True
+                                qnt_tentativa_especial += 1
+                                if qnt_tentativa_especial <= 3:
+                                    self.dado = randint(1,6)
+                                    if self.dado == 6:
+                                        qnt_acerto_especial += 1
+                                        if qnt_acerto_especial <= 1:
+                                            acertou_especial = True
+                                            errou_especial = False
+                                            self.dano = 8
+                                            self.verificador(self.dano)
+                                            personagem.atack_especial()
+                                        elif qnt_acerto_especial >= 1:
+                                            limite_especial = True
+                                    else:
+                                        errou_especial = True
+                                        acertou_especial = False
+                                        self.vida_personagem -= dano
+                                elif qnt_tentativa_especial >= 3:
+                                    limite_especial = True
+
+                    if escolha == 'pietra':
+                        if self.botoes_batalha == True:
+                            if event.key == pg.K_a:
+                                cura = False
+                                esquiva = False
+                                ataque = True
+                                self.dado = randint(1, 6)
+                                if self.dado >= 5:
+                                    acertou_ataque = True
+                                    errou_ataque = False
+                                    self.dano = 4
+                                    self.verificador(self.dano)
+                                    personagem.atack()
+                                else:
+                                    errou_ataque = True
+                                    acertou_ataque = False
+
+                                if dano > self.vida_personagem:
+                                    self.vida_personagem = 0
+                                else:
+                                    self.vida_personagem -= dano
+                                inimigo.atack()
+
+                            if event.key == pg.K_z:
+                                cura = False
+                                ataque = False
+                                esquiva = True
+                                inimigo.atack()
+                                self.dado = randint(1,6)
+                                if self.dado >= 4:
+                                    acertou_esquiva = True
+                                    errou_esquiva = False
+                                    self.dano = 2
+                                    self.verificador(self.dano)
+                                    personagem.atack()
+                                else:
+                                    errou_esquiva = True
+                                    acertou_esquiva = False
+                                    self.vida_personagem -= dano
+                            
+                            if event.key == pg.K_s:
+                                ataque = False
+                                esquiva = False
+                                cura = True
+                                qnt_tentativa_cura += 1
+                                if qnt_tentativa_cura <= 5:
+                                    self.dado = randint(1,6)
+                                    if self.dado >= 4:
+                                        qnt_acerto_cura += 1
+                                        if qnt_acerto_cura <= 3:
+                                            acertou_cura = True
+                                            errou_cura = False
+                                            if self.vida_personagem <= 8:
+                                                self.vida_personagem += 2
+                                            elif self.vida_personagem == 9:
+                                                self.vida_personagem += 1
+                                        elif qnt_acerto_cura >= 3:
+                                            limite_cura = True
+                                    else:
+                                        errou_cura = True
+                                        acertou_cura = False
+                                        self.vida_personagem -= dano
+                                elif qnt_tentativa_cura >= 5:
+                                    limite_cura = True
 
                     indice = self.dado - 1
             
             if self.paused:
+                self.botoes_batalha = False
                 self.som_batalha_ligado = False
                 som_batalha.stop()
                 self.musica_ligada = True
@@ -419,6 +431,7 @@ class RPG:
             self.tela.blit(barra_vida[self.vida_inimigo - 1], (467, 0))
 
             if self.vida_personagem == 0:
+                self.fim_batalha = True
                 som_game_over.play()
                 som_batalha_final.stop()
                 self.som_batalha_ligado = False
@@ -432,6 +445,7 @@ class RPG:
                     self.tela_escolha()
 
             if self.vida_inimigo == 0:
+                self.fim_batalha = True
                 self.tela.blit(imagem, (150, 200))
                 if pg.key.get_pressed()[pg.K_c]:
                     self.numero_da_batalha += 1
@@ -932,7 +946,8 @@ class RPG:
             if colisaoBtnJogar:
                 self.tela.blit(btnJogarEscala, (areaBtnJogar.x*0.975, areaBtnJogar.y*0.975))
                 if pg.mouse.get_pressed()[0] == 1:
-                    self.tela_texto_inicial()
+                    self.vitoria_Cassio()
+                    #self.tela_texto_inicial()
             else:
                 self.tela.blit(btnJogar, (areaBtnJogar.x, areaBtnJogar.y))
 

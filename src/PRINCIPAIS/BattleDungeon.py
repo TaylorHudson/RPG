@@ -180,6 +180,7 @@ class RPG:
 
         self.botoes_batalha = False
         self.fim_batalha = False
+        self.som_game_over = False
 
         self.batalha = True
         while self.batalha:
@@ -190,6 +191,11 @@ class RPG:
                 self.botoes_batalha = False
             else:
                 self.botoes_batalha = True
+
+            if self.som_game_over:
+                som_game_over.play()
+            else:
+                som_game_over.stop()
 
             for event in pg.event.get():
                 if event.type == pg.QUIT:
@@ -431,8 +437,8 @@ class RPG:
             self.tela.blit(barra_vida[self.vida_inimigo - 1], (467, 0))
 
             if self.vida_personagem == 0:
+                self.som_game_over = True
                 self.fim_batalha = True
-                som_game_over.play()
                 som_batalha_final.stop()
                 self.som_batalha_ligado = False
                 som_batalha.stop()

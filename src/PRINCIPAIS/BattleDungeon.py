@@ -946,8 +946,7 @@ class RPG:
             if colisaoBtnJogar:
                 self.tela.blit(btnJogarEscala, (areaBtnJogar.x*0.975, areaBtnJogar.y*0.975))
                 if pg.mouse.get_pressed()[0] == 1:
-                    self.vitoria_Cassio()
-                    #self.tela_texto_inicial()
+                    self.tela_texto_inicial()
             else:
                 self.tela.blit(btnJogar, (areaBtnJogar.x, areaBtnJogar.y))
 
